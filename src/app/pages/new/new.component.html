@@ -1,0 +1,47 @@
+<h3>Nueva serie (POST)</h3>
+
+<form [formGroup]="form" (ngSubmit)="enviar()" class="form-container">
+
+  <div class="form-group">
+    <label>Title</label>
+    <input type="text" formControlName="title" />
+
+    @if (form.get('title')?.touched && form.get('title')?.invalid) {
+      <div class="error">
+        @if (form.get('title')?.errors?.['required']) {
+          <small>El título es obligatorio</small>
+        }
+        @if (form.get('title')?.errors?.['minlength']) {
+          <small>Mínimo 3 caracteres</small>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label>Channel</label>
+    <input type="text" formControlName="channel" />
+
+    @if (form.get('channel')?.touched && form.get('channel')?.invalid) {
+      <div class="error">
+        <small>El canal es obligatorio</small>
+      </div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label>Rating (0 - 10)</label>
+    <input type="number" formControlName="rating" />
+
+    @if (form.get('rating')?.touched && form.get('rating')?.invalid) {
+      <div class="error">
+        <small>Debe estar entre 0 y 10</small>
+      </div>
+    }
+  </div>
+
+  <button type="submit" [disabled]="form.invalid">
+    Crear serie
+  </button>
+
+</form>
