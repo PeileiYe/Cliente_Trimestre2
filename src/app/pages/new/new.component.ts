@@ -14,6 +14,8 @@ import { Serie } from '../../models/serie.model';
 })
 export class NewComponent {
 
+  mensaje: string = '';
+
   form = new FormGroup({
     title: new FormControl('', [
       Validators.required,
@@ -45,11 +47,14 @@ export class NewComponent {
 
     this.seriesService.create(payload).subscribe({
       next: (res) => {
-        alert(`Serie creada correctamente. ID devuelto: ${res.id}`);
-        this.router.navigate(['/home']);
+        this.mensaje = `Serie creada correctamente. ID: ${res.id}`;
+
+        setTimeout(() => {
+          this.router.navigate(['/home']);
+        }, 6000);
       },
       error: () => {
-        alert('Error al crear la serie');
+        this.mensaje = 'Error al crear la serie';
       },
     });
   }
